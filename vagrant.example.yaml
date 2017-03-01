@@ -1,0 +1,31 @@
+---
+ip: "192.168.33.10"
+# networks:
+#     - type: "public_network"
+#       ip: "10.10.10.6"
+#       bridge: "en1: Ethernet (en1)"
+memory: 1048
+cpus: 1
+box: CentBox
+#box_url: https://storage.googleapis.com/centbox/CentBox.json
+provider: virtualbox
+name: CentBox
+gui: false
+#authorize: ~/.ssh/id_rsa.pub
+#keys:
+#     - ~/.ssh/id_rsa
+folders:
+    - map: ./user/sites
+      to: /var/www/
+variables:
+    - key: APP_ENV
+      value: local
+    - key: API_KEY
+      value: 123abc
+ports:
+    - send: 3306
+      to: 3306
+    - send: 6379
+      to: 6379
+    - send: 27017
+      to: 27017

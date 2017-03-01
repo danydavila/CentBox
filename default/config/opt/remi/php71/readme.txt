@@ -1,0 +1,1 @@
+to edit php71 config file please see /etc/opt/remi/php71 path

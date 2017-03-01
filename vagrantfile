@@ -1,0 +1,68 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'yaml'
+
+baseDir = File.dirname(File.absolute_path(__FILE__))
+
+homesteadYamlPath      = baseDir + "/vagrant.yaml"
+aliasesPath            = baseDir + "/user/aliases"
+initializeScriptPath   = baseDir + "/scripts/initialize.sh"
+startupScriptPath      = baseDir + "/user/script/startup.sh"
+
+require File.expand_path(File.dirname(__FILE__) + '/scripts/provision.rb')
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.require_version '>= 1.8.6'
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+        # ssh settings
+        config.ssh.insert_key = false  #Do not generate a key
+        config.ssh.username = "vagrant"
+        config.ssh.private_key_path = [baseDir + "/scripts/CentBox_SSHKey"]
+
+        settings = YAML::load(File.read(homesteadYamlPath))
+
+        Homestead.configure(config, settings)
+
+        # check if user have a custom server configuration
+        # If a /userland/config directory exists in the same directory as your Vagrantfile,
+        # a mapped directory inside the VM will be created that contains these files.
+        # later a rsync process will sync folder/files
+        if File.directory? "./user/config" then
+               config.vm.synced_folder "./user/config", "/srv/config",  owner: "root", group: "root"
+             else
+               config.vm.synced_folder "./default/config", "/srv/config",  owner: "root", group: "root"
+        end
+
+        if File.directory? "./user/scripts" then
+              config.vm.synced_folder "./user/scripts", "/home/vagrant/scripts",  owner: "vagrant", group: "www-users"
+           else
+              config.vm.synced_folder "./default/scripts", "/home/vagrant/scripts",  owner: "vagrant", group: "www-users"
+        end
+
+        # /srv/database/
+        #
+        # If a database directory exists in the same directory as your Vagrantfile,
+        # a mapped directory inside the VM will be created that contains these files.
+        # This directory is used to maintain default database scripts as well as backed
+        # up mysql dumps (SQL files) that are to be imported automatically on vagrant up
+        if File.directory? "./user/database" then
+             config.vm.synced_folder "./user/database", "/srv/database"
+          else
+              config.vm.synced_folder "./default/database", "/srv/database"
+        end
+
+        # Copy alias file to vm
+        if File.exist? aliasesPath then
+            config.vm.provision "file", source: "./user/.bash_aliases", destination: "~/.bash_aliases", privileged: false
+        end
+
+        # Run only Once. execute provision-initialize.sh
+        if File.exist? initializeScriptPath then
+           config.vm.provision "shell", path: initializeScriptPath
+        end
+
+        # Run always. Automatically Run a Command/script at startup
+        if File.exist? startupScriptPath then
+           config.vm.provision "shell", path: startupScriptPath, run: "always"
+        end
+end

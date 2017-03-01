@@ -1,0 +1,17 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+127.0.0.1   centbox
+
+127.0.0.1   centbox.localhost.localdomain
+127.0.0.1   centbox.local.io centbox.local.dev
+127.0.0.1   centbox.local.lan
+127.0.0.1   db db.localhost.localdomain
+127.0.0.1   db.local.io db.local.lan
+127.0.0.1   redis redis.localhost.localdomain
+127.0.0.1   memcached memcached.localhost.localdomain
+127.0.0.1   mailcatcher mailcatcher.localhost.localdomain mailcatcher.io www.mailcatcher.io
+127.0.0.1   devbox.local.io
+127.0.0.1   local.io
+127.0.0.1   local.dev
+127.0.0.1   dev.local
+127.0.0.1   dev.io
