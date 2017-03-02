@@ -43,7 +43,7 @@ echo "Ensuring files exists and fixing PHP file permissions"
 if [[ ! -d "/var/log/php" ]]; then sudo mkdir -p "/var/log/php"; fi
 if [[ ! -f "/var/log/php/php_error.log" ]]; then sudo touch "/var/log/php/php_error.log"; fi
 if [[ ! -f "/var/log/php/php56_error.log" ]]; then sudo touch "/var/log/php/php56_error.log"; fi
-if [[ ! -f "/var/log/php/php70_error.log" ]]; then sudo touch "/var/log/php/php70_error.log"; fi
+if [[ ! -f "/var/log/php/php71_error.log" ]]; then sudo touch "/var/log/php/php71_error.log"; fi
 
 
 echo "Updating PHP 5.6 php.ini Configuration"
@@ -67,10 +67,8 @@ sudo sed -i 's/user = .*/user = vagrant/'  /opt/remi/php56/root/etc/php-fpm.d/ww
 sudo sed -i 's/group = .*/group = www-users/'  /opt/remi/php56/root/etc/php-fpm.d/www.conf
 
 sudo systemctl restart php56-php-fpm
-sudo systemctl restart php70-php-fpm
+sudo systemctl restart php71-php-fpm
 
-sudo nginx -t
-sudo nginx -s reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
 

@@ -7,7 +7,8 @@ baseDir = File.dirname(File.absolute_path(__FILE__))
 homesteadYamlPath      = baseDir + "/vagrant.yaml"
 aliasesPath            = baseDir + "/user/aliases"
 initializeScriptPath   = baseDir + "/scripts/initialize.sh"
-startupScriptPath      = baseDir + "/user/script/startup.sh"
+syncScriptPath         = baseDir + "/default/scripts/sync.sh"
+startupScriptPath      = baseDir + "/user/scripts/startup.sh"
 
 require File.expand_path(File.dirname(__FILE__) + '/scripts/provision.rb')
 
@@ -61,8 +62,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
            config.vm.provision "shell", path: initializeScriptPath
         end
 
-        # Run always. Automatically Run a Command/script at startup
+        # Run always. Automatically Run script at everytime
         if File.exist? startupScriptPath then
-           config.vm.provision "shell", path: startupScriptPath, run: "always"
+              # /user/script/startup.sh
+             config.vm.provision "shell", path: startupScriptPath, run: "always"
+          else
+             # ./default/script/sync.sh
+             config.vm.provision "shell", path: syncScriptPath, run: "always"
         end
 end

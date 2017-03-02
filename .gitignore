@@ -4,6 +4,7 @@ vagrant.yaml
 ### ignore user space
 user/*
 !user/.gitkeep
+!user/sites/.gitkeep
 
 ### ignore development on web site folder
 default/sites/*
