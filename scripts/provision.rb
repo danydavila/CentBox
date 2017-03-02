@@ -86,6 +86,7 @@ class Homestead
     default_ports = {
       80   => 8000,
       443  => 44300,
+      8080 => 8080,
       3306 => 33060,
       5432 => 54320
     }
@@ -163,7 +164,31 @@ class Homestead
       end
     end
 
+# Configure sites
+if settings.include? 'sites'
 
+    settings["sites"].each do |site|
+        config.vm.provision "shell" do |s|
+          type = site["type"] ||= "laravel"
+
+            if (type == "lv")
+                type = "laravel"
+            end
+
+            if (type == "ci")
+                type = "codeigniter"
+            end
+
+            if (type == "wp")
+                type = "wordpress"
+            end
+
+            s.name = "Creating Site: " + site["map"]
+            s.path = scriptDir + "/create-vhost-#{type}.sh"
+            s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443"]
+        end
+      end
+end
 
         # Configure The Cron Schedule
         if (settings.has_key?("schedule"))

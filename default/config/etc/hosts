@@ -2,6 +2,7 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 127.0.0.1   centbox
 
+127.0.0.1   centbox.app
 127.0.0.1   centbox.localhost.localdomain
 127.0.0.1   centbox.local.io centbox.local.dev
 127.0.0.1   centbox.local.lan

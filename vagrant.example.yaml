@@ -14,6 +14,13 @@ gui: false
 #authorize: ~/.ssh/id_rsa.pub
 #keys:
 #     - ~/.ssh/id_rsa
+sites:
+    - map: centbox.app
+      to: /var/www/default
+      type: codeigniter
+    - map: centbox2.app
+      to: /var/www/default
+      type: laravel
 folders:
     - map: ./user/sites
       to: /var/www/
