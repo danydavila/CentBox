@@ -34,10 +34,22 @@ if [ "`systemctl is-active docker`" != "active" ]
     systemctl is-active docker
 fi
 
-
+echo 'Installing Mailcatcher'
+# Source Repository / Contribute / Fork this project on Github. https://github.com/danydavila/centos-mailcatcher
+sudo docker pull danydavila/centos-mailcatcher
+sudo docker run --name mailcatcher --restart on-failure:5 -p 1025:1025 -p 1080:1080 -d danydavila/centos-mailcatcher
+sudo cp -f /etc/postfix/main.cf /etc/postfix/main.cf.bk
+# sudo sh -c "echo 'relayhost = 127.0.0.1:1025' >> /etc/postfix/main.cf"
+sudo sed -i -r "s#relayhost = (.*)#relayhost = 127.0.0.1:1025#g" /etc/postfix/main.cf
+sudo postsuper -d ALL && sudo postsuper -d ALL deferred
+sudo systemctl restart postfix
+echo "Test Email" | mail -s "Welcome to CentBox" test@domain.com
+echo "Login To MailCatcher"
+echo "http://127.0.0.1:1080"
 
 echo 'Installing PHPMyAdmin'
 sudo docker run --name phpmyadmin --restart on-failure:5 -e PMA_HOST=$IPADDRESS -p 8080:80 -d phpmyadmin/phpmyadmin
+
 echo "Login To PHPMyAdmin"
 echo "http://127.0.0.1:8080"
 echo "username: admin"
