@@ -4,23 +4,31 @@ That setup is heavily inspired by [Laravel Homestead](https://laravel.com/docs/5
 
 ## What's inside ##
 
-* CentOS 7.2.1511 64-bit
-* Docker version 1.13.1
-* Nginx 1.10.3
+* CentOS 7.4 (1708) x86_64 build (3.10.0-693.21.1.el7.x86_64)
+* Docker version 17.12.1-ce, build 7390fc6
+* Nginx 1.12.2
 * PHP-FPM 5.6 & PHP-FPM 7.1
 * MySQL 5.6 (Percona)
-* NodeJS LTS
-* Javascript Package manager (npm)
-* Composer & PHPunit
-* Redis
-* Memcached
-* Git, Nano, Rsync, etc.
+* NodeJS v8.10.0 LTS
+* Javascript Package Manager (npm)
+* PHP Composer & PHPunit
+* Python 2.7.5
+* Perl 5, version 16
+* Ansible 2.4.2.0
+* epel-release enabled
+* Git, visudo, Nano, wget, curl, netool, tree, p7zip, nmap-ncat, zip, htop, rSync, and others basic linux tools. 
 
 ## Prerequisites ##
 
 1. Linux or Mac
 2. Vagrant ([latest version](https://www.vagrantup.com/downloads.html))
 4. Virtual Box ([download](https://www.virtualbox.org/wiki/Downloads))
+ 
+## Documentation ##
+
+* MacOS Port Forwarding  ([download](https://github.com/danydavila/CentBox/tree/master/docs/MacOS-PortForwarding.md))
+* PHP config  ([download](https://github.com/danydavila/CentBox/tree/master/docs/CentBox-PHP.md))
+* Vagrant Example ([download](https://github.com/danydavila/CentBox/tree/master/docs/Vagrant-CentBox.md))
     
 ## Setup steps ##
 

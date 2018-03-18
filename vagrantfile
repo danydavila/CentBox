@@ -13,7 +13,7 @@ startupScriptPath      = baseDir + "/user/scripts/startup.sh"
 require File.expand_path(File.dirname(__FILE__) + '/scripts/provision.rb')
 
 VAGRANTFILE_API_VERSION = "2"
-Vagrant.require_version '>= 1.8.6'
+Vagrant.require_version '>= 2.0.2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # ssh settings
         config.ssh.insert_key = false  #Do not generate a key

@@ -17,7 +17,7 @@ class Homestead
 
     # Configure The Box
     config.vm.box = settings["box"] ||= "CentBox"
-    config.vm.box_version = settings["version"] ||= ">= 0.1.0"
+    config.vm.box_version = settings["version"] ||= ">= 0.5.4"
     config.vm.hostname = settings["hostname"] ||= "centbox"
     if settings.has_key?("box_url")
     config.vm.box_url = settings["box_url"] ||= "https://storage.googleapis.com/centbox/CentBox.json"
@@ -36,7 +36,7 @@ class Homestead
     # Configure A Few VirtualBox Settings
     config.vm.provider "virtualbox" do |vb|
       vb.name = settings["name"] ||= "CentBox"
-      vb.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "2048"]
+      vb.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "1024"]
       vb.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", settings["natdnshostresolver"] ||= "on"]
